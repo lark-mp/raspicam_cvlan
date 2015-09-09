@@ -61,7 +61,7 @@ void SystemMonitor::UpdateMemUsage()
   ifs >> name >> avail >> postfix;
 
   stringstream ss;
-  ss << setw(5) << fixed << setprecision(1) << (float)(total-avail)/total << "%";
+  ss << setw(4) << fixed << setprecision(1) << (float)(total-avail)/total << "%";
   m_memUsed = ss.str();
 }
 
@@ -125,18 +125,16 @@ void SystemMonitor::ProcessFrame(Mat& frame)
     UpdateTemp();
     m_diffTime = 0;
   }
-  putText(frame, "CPU:", Point(90,20), FONT_HERSHEY_PLAIN, 1.5, Scalar(0,200,0), 2, CV_AA);
-  putText(frame, GetCPUUsage(0).c_str(), Point(150,20), FONT_HERSHEY_PLAIN, 1.5, Scalar(0,200,0), 2, CV_AA);
-  putText(frame, ":", Point(220,20), FONT_HERSHEY_PLAIN, 1.5, Scalar(0,200,0), 2, CV_AA);
-  putText(frame, GetCPUUsage(1).c_str(), Point(230,20), FONT_HERSHEY_PLAIN, 1.5, Scalar(0,200,0), 2, CV_AA);
-  putText(frame, GetCPUUsage(2).c_str(), Point(290,20), FONT_HERSHEY_PLAIN, 1.5, Scalar(0,200,0), 2, CV_AA);
-  putText(frame, GetCPUUsage(3).c_str(), Point(350,20), FONT_HERSHEY_PLAIN, 1.5, Scalar(0,200,0), 2, CV_AA);
-  putText(frame, GetCPUUsage(4).c_str(), Point(410,20), FONT_HERSHEY_PLAIN, 1.5, Scalar(0,200,0), 2, CV_AA);
 
-  putText(frame, "Mem:", Point(490,20), FONT_HERSHEY_PLAIN, 1.5, Scalar(0,200,0), 2, CV_AA);
-  putText(frame, GetMemUsage().c_str(), Point(540,20), FONT_HERSHEY_PLAIN, 1.5, Scalar(0,200,0), 2, CV_AA);
+  string topStatus = "CPU:"+GetCPUUsage(0)+":"
+    +GetCPUUsage(1)+" "
+    +GetCPUUsage(2)+" "
+    +GetCPUUsage(3)+" "
+    +GetCPUUsage(4)+" "
+    +"Mem:"+GetMemUsage();
+  putText(frame, topStatus.c_str(), Point(90,20), FONT_HERSHEY_PLAIN, 1.5, Scalar(0,200,0), 2, CV_AA);
 
-  putText(frame, "Temp:", Point(480,470), FONT_HERSHEY_PLAIN, 1.5, Scalar(0,200,0), 2, CV_AA);
-  putText(frame, GetTemp().c_str(), Point(560,470), FONT_HERSHEY_PLAIN, 1.5, Scalar(0,200,0), 2, CV_AA);
+  string bottomStatus = "Temp:"+GetTemp();
+  putText(frame, bottomStatus.c_str(), Point(480,470), FONT_HERSHEY_PLAIN, 1.5, Scalar(0,200,0), 2, CV_AA);
 }
 
