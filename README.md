@@ -3,9 +3,11 @@ raspicam_cvlan is an easy-to-use installer and program that enables raspberry pi
 
 The script is for Raspbian. Tested version is 2015-05-05.
 ## Quickstart
-### Install packages and libraries
+### Install packages and libraries (on Raspberry Pi2)
 ```bash
 cd /home/pi
+mkdir git
+cd git
 git clone https://github.com/lark-mp/raspicam_cvlan
 cd raspicam_cvlan
 sh install_raspicam_cvlan.sh
@@ -13,9 +15,9 @@ sh install_raspicam_cvlan.sh
 The installation may take an hour or more.
 
 To show sample video to a client, start ``tcpsend.640x480.sh``.
-### Show sample video stream (on Windows client)
+### Show sample video stream (on Windows)
 <!-- #### Windows -->
-* Download [mplayer](https://www.mplayerhq.hu/design7/dload.html) and extract 7z file.
+* Download [mplayer](https://www.mplayerhq.hu/design7/dload.html) and extract the file.
 * Create a file named ``raspicam.bat`` in the extracted folder and write the following script:
 
 ```cmd
