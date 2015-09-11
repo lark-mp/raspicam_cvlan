@@ -14,7 +14,7 @@ sh install_raspicam_cvlan.sh
 ```
 The installation may take an hour or more.
 
-To show sample video to a client, start ``tcpsend.640x480.sh``.
+To show sample video to a client, start ``tcpsend.sh``.
 ### Show sample video stream (on Windows)
 <!-- #### Windows -->
 * Download [mplayer](https://www.mplayerhq.hu/design7/dload.html) and extract the file.
