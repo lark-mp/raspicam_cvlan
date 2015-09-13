@@ -17,6 +17,7 @@ sudo apt-get install libswscale-dev
 
 
 # Install OpenCV 3.0.0
+sudo chmod 777 /usr/local/src
 cd /usr/local/src
 wget http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/3.0.0/opencv-3.0.0.zip
 unzip opencv-3.0.0.zip
