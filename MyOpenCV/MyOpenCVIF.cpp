@@ -9,7 +9,7 @@ MyOpenCVIF::MyOpenCVIF() :
 void MyOpenCVIF::ProcessFrame(Mat& frame)
 {
   m_FPSCounter.ProcessFrame(frame);
-  m_systemMonitor.ProcessFrame(frame);
-  m_humanDetector.ProcessFrame(frame);
+  //m_systemMonitor.ProcessFrame(frame);
+  //m_humanDetector.ProcessFrame(frame);
   m_HUD.ProcessFrame(frame);
 }
