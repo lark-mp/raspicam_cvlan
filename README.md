@@ -14,40 +14,28 @@ sh install_raspicam_cvlan.sh
 The installation may take an hour or more.
 
 ## Quickstart
-### 1. If you want to show streaming video locally in RasPi2
+### 1. Show video locally on LXDE (X window)
 #### Start raspicam_cvlan
 
 Run ``tcpsend.sh`` on your shell.
 
-A warning shown below occurs, but this is normal.
-
-```bash
-OpenCV: FFMPEG: tag 0x30323449/'I420' is not supported with codec id 14 and format 'rawvideo / raw video'
-```
-
 RasPi2 is now waiting for an access from a client.
 
-#### Show video with mplayer
+#### Show video with gstreamer
 
-Run following script in another shell.
+Run the following script on another shell.
 
 ```cmd
-mplayer -demuxer h264es -vo direct3d -fps 60 ffmpeg://tcp://127.0.0.1:5001
+gst-launch-1.0 tcpclientsrc host=127.0.0.1 port=5001 ! h264parse ! omxh264dec ! "video/x-raw, format=(string)I420" ! autovideosink
 ```
 
-### 2. If you want to show streaming video over LAN
+### 2. Show video over LAN
 
 #### On Raspberry Pi2
 
 ##### Start raspicam_cvlan
 
 Run ``tcpsend.sh`` on your shell.
-
-A warning shown below occurs, but this is normal.
-
-```bash
-OpenCV: FFMPEG: tag 0x30323449/'I420' is not supported with codec id 14 and format 'rawvideo / raw video'
-```
 
 RasPi2 is now waiting for an access from a client.
 
@@ -74,6 +62,13 @@ Make sure ``tcpsend.sh`` is running on RasPi2 and doubleclick ``raspicam.bat`` t
 mplayer -demuxer h264es -vo direct3d -fps 60 ffmpeg://tcp://[your_raspi_IP_address]:5001
 ```
 -->
+
+### Try other OpenCV samples
+If you uncomment lines in MyOpenCVIF::ProcessFrame() in MyOpenCV/MyOpenCVIF.cpp and make, you can display a system monitor and enable face detection respectively, although performance gets worse.
+
+## How to implement your own OpenCV code
+To be written
+
 ## Credits
 The project is inspired by [raspicam_cv](https://github.com/robidouille/robidouille/tree/master/raspicam_cv "raspicam_cv").
 
