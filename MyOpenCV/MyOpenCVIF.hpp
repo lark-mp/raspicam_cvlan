@@ -18,6 +18,8 @@ private:
   SystemMonitor m_systemMonitor;
   HumanDetector m_humanDetector;
   HUD m_HUD;
+
+  Mat m_frame;
 public:
   MyOpenCVIF();
   ~MyOpenCVIF(){}

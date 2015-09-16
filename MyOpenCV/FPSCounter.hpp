@@ -3,6 +3,12 @@
 
 #include <opencv2/core/core.hpp>
 
+struct func_mat {
+  void *func;
+  cv::Mat* frame;
+};
+
+
 using namespace std;
 using namespace cv;
 
@@ -22,6 +28,13 @@ class FPSCounter
   ~FPSCounter(){}
 
   void ProcessFrame(Mat& frame);
+
+  static void* thread_function(void *arg) {
+    FPSCounter* cls = (FPSCounter*)(((func_mat*)arg)->func);
+    cls->ProcessFrame(*((func_mat*)arg)->frame);
+    return NULL;
+  }
+
 };
 
 #endif

@@ -3,6 +3,7 @@
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/objdetect/objdetect.hpp>
+#include "FPSCounter.hpp"
 
 using namespace std;
 using namespace cv;
@@ -31,6 +32,8 @@ private:
   DetectionBasedTracker* m_detector;
 
   bool m_enabled;
+  int m_phase;
+  vector<Rect> m_humans;
 
   HumanDetector();
 public:
@@ -38,6 +41,12 @@ public:
   ~HumanDetector();
 
   void ProcessFrame(Mat& frame);
+
+  static void* thread_function(void *arg) {
+    HumanDetector* cls = (HumanDetector*)(((func_mat*)arg)->func);
+    cls->ProcessFrame(*((func_mat*)arg)->frame);
+    return NULL;
+  }
 };
 
 #endif
