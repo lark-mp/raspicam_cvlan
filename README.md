@@ -3,7 +3,11 @@ raspicam_cvlan is an easy-to-use installer and program that enables raspberry pi
 
 The script is for Raspbian. Tested version is 2015-05-05.
 ## Requirements
-To be written
+* Raspberry Pi2
+* Raspberry Pi Video Module
+* Stable power supply
+* Internet connection
+* Windows PC/Tablet is needed when you want to watch RasPi video over LAN
 
 ## Installation
 ```bash
@@ -66,11 +70,23 @@ mplayer -demuxer h264es -vo direct3d -fps 60 ffmpeg://tcp://[your_raspi_IP_addre
 ```
 -->
 
-### Try other OpenCV samples
-If you uncomment lines in MyOpenCVIF::ProcessFrame() in MyOpenCV/MyOpenCVIF.cpp and make, you can display a system monitor and enable face detection respectively, although performance gets worse.
+### Disable OpenCV samples
+If you comment out lines in MyOpenCVProcessor::Initialize() in MyOpenCV/MyOpenCVProcessor.cpp, you can disable respective functions.
 
 ## How to implement your own OpenCV code
-To be written
+To implement your own OpenCV code, please follow the instructions below.
+
+### Create your own MyOpenCV class
+You have to inherit MyOpenCVIF and implement YourClass::ProcessFrame.
+Each frame of video stream will be given as an argument "cv::Mat& frame".
+
+### Modify Makefile
+Add your object of the class to MYOBJS.
+
+### Modify MyOpenCV/MyOpenCVProcessor.cpp
+Include your header file to MyOpenCVProcessor.cpp and add an instance of your class to MyOpenCVProcessor::Initialize.
+* When you add your instance to m_cvMain, the instance will process video frames in the main thread.
+* When you add your instance to m_cvThread, a new thread will be automatically created and the instance will process video frames in the new thread.
 
 ## Credits
 The project is inspired by [raspicam_cv](https://github.com/robidouille/robidouille/tree/master/raspicam_cv "raspicam_cv").
