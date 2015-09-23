@@ -10,7 +10,10 @@ using namespace cv;
 class MyOpenCVIterator
 {
 private:
-  vector<MyOpenCVIF*> m_myOpenCVVec;
+  vector<MyOpenCVIF*> m_cvMain;
+  vector<MyOpenCVIF*> m_cvThread;
+
+  void ThreadWorker(MyOpenCVIF* myCV, Mat& frame);
 public:
   MyOpenCVIterator();
   ~MyOpenCVIterator(){}
