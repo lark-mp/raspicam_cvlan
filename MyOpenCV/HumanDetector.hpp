@@ -3,6 +3,7 @@
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/objdetect/objdetect.hpp>
+#include "MyOpenCVIF.hpp"
 
 using namespace std;
 using namespace cv;
@@ -20,7 +21,7 @@ public:
 
 };
 
-class HumanDetector
+class HumanDetector : public MyOpenCVIF
 {
 private:
   string m_cascadeFrontalfilename;
@@ -31,13 +32,15 @@ private:
   DetectionBasedTracker* m_detector;
 
   bool m_enabled;
+  int m_phase;
+  vector<Rect> m_humans;
 
   HumanDetector();
 public:
   HumanDetector(string p_cascadeFrontalFilename);
   ~HumanDetector();
 
-  void ProcessFrame(Mat& frame);
+  virtual void ProcessFrame(Mat& frame);
 };
 
 #endif

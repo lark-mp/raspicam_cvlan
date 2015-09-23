@@ -61,7 +61,7 @@ void SystemMonitor::UpdateMemUsage()
   ifs >> name >> avail >> postfix;
 
   stringstream ss;
-  ss << setw(4) << fixed << setprecision(1) << (float)(total-avail)/total << "%";
+  ss << setw(4) << fixed << setprecision(1) << (float)(total-avail)/total*100. << "%";
   m_memUsed = ss.str();
 }
 
