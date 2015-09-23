@@ -2,7 +2,7 @@
 #include <opencv2/highgui/highgui.hpp>
 
 #include "../robidouille/raspicam_cv/RaspiCamCV.h"
-#include "MyOpenCV/MyOpenCVIF.hpp"
+#include "MyOpenCV/MyOpenCVIterator.hpp"
 
 using namespace std;
 using namespace cv;
@@ -50,12 +50,13 @@ int main(int argc, char *argv[]){
     return 1;
   }
 
-  MyOpenCVIF myOpenCVIF;
+  MyOpenCVIterator myOpenCVIterator;
+  myOpenCVIterator.Initialize();
 
   do {
     Mat ReferenceFrame = cvarrToMat(raspiCamCvQueryFrame(capture));
 	
-    myOpenCVIF.ProcessFrame(ReferenceFrame);
+    myOpenCVIterator.ProcessFrame(ReferenceFrame);
 
     IplImage image = ReferenceFrame;
     cvWriteFrame( writer, &image );

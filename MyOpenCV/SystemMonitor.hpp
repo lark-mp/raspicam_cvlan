@@ -5,12 +5,12 @@
 #include <sys/times.h>
 #include <sys/sysinfo.h>
 #include <sys/statvfs.h>
-#include "FPSCounter.hpp"
+#include "MyOpenCVIF.hpp"
 
 using namespace std;
 using namespace cv;
 
-class SystemMonitor
+class SystemMonitor : public MyOpenCVIF
 {
  private:
   string GetCPUUsage(int cpuNum);
@@ -39,13 +39,7 @@ class SystemMonitor
   SystemMonitor();
   ~SystemMonitor(){}
 
-  void ProcessFrame(Mat& frame);
-
-  static void* thread_function(void *arg) {
-    SystemMonitor* cls = (SystemMonitor*)(((func_mat*)arg)->func);
-    cls->ProcessFrame(*((func_mat*)arg)->frame);
-    return NULL;
-  }
+  virtual void ProcessFrame(Mat& frame);
 };
 
 

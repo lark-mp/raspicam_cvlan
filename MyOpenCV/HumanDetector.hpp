@@ -3,7 +3,7 @@
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/objdetect/objdetect.hpp>
-#include "FPSCounter.hpp"
+#include "MyOpenCVIF.hpp"
 
 using namespace std;
 using namespace cv;
@@ -21,7 +21,7 @@ public:
 
 };
 
-class HumanDetector
+class HumanDetector : public MyOpenCVIF
 {
 private:
   string m_cascadeFrontalfilename;
@@ -40,13 +40,7 @@ public:
   HumanDetector(string p_cascadeFrontalFilename);
   ~HumanDetector();
 
-  void ProcessFrame(Mat& frame);
-
-  static void* thread_function(void *arg) {
-    HumanDetector* cls = (HumanDetector*)(((func_mat*)arg)->func);
-    cls->ProcessFrame(*((func_mat*)arg)->frame);
-    return NULL;
-  }
+  virtual void ProcessFrame(Mat& frame);
 };
 
 #endif

@@ -1,11 +1,19 @@
 OBJDIR=objs
 
-CFLAGS=-g -O3 -I/usr/local/include/opencv -I/usr/local/include/opencv2 -MD
+GCC_VER_GE_47=$(shell test `gcc -dumpversion | sed 's/^\([0-9]\)\.\([0-9]\).*/\1\2/'` -ge 47 && echo 1 || echo 0)
+
+ifeq ($(GCC_VER_GE_47),1)
+ STDFLAG=-std=c++11
+else
+ STDFLAG=-std=c++0x
+endif
+
+CFLAGS=-g -O3 -I/usr/local/include/opencv -I/usr/local/include/opencv2 -MD ${STDFLAG}
 LDFLAGS=-lopencv_highgui -lopencv_core -lopencv_video -lopencv_features2d -lopencv_calib3d -lopencv_imgproc -lpthread -lm -lopencv_videoio -lopencv_objdetect  -lX11 -lXext -lrt -lstdc++ -L../raspberrypi/userland/build/lib -lmmal_core -lmmal -l mmal_util -lvcos -lbcm_host -L. libraspicamcv.a 
 
 OBJS = \
 	$(OBJDIR)/RaspiCamMain.o \
-	$(OBJDIR)/MyOpenCVIF.o \
+	$(OBJDIR)/MyOpenCVIterator.o \
 	$(OBJDIR)/HumanDetector.o \
 	$(OBJDIR)/HUD.o \
 	$(OBJDIR)/FPSCounter.o \

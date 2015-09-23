@@ -3,28 +3,14 @@
 
 #include <opencv2/core/core.hpp>
 
-#include "FPSCounter.hpp"
-#include "SystemMonitor.hpp"
-#include "HumanDetector.hpp"
-#include "HUD.hpp"
-
-using namespace std;
-using namespace cv;
-
 class MyOpenCVIF
 {
 private:
-  FPSCounter m_FPSCounter;
-  SystemMonitor m_systemMonitor;
-  HumanDetector m_humanDetector;
-  HUD m_HUD;
-
-  Mat m_frame;
 public:
-  MyOpenCVIF();
-  ~MyOpenCVIF(){}
+  MyOpenCVIF(){}
+  virtual ~MyOpenCVIF(){}
 
-  void ProcessFrame(Mat& frame);
+  virtual void ProcessFrame(cv::Mat& frame) = 0;
 };
 
 #endif

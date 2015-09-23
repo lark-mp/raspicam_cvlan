@@ -2,17 +2,12 @@
 #define __FPS_COUNTER_HPP
 
 #include <opencv2/core/core.hpp>
-
-struct func_mat {
-  void *func;
-  cv::Mat* frame;
-};
-
+#include "MyOpenCVIF.hpp"
 
 using namespace std;
 using namespace cv;
 
-class FPSCounter
+class FPSCounter : public MyOpenCVIF
 {
  private:
   double m_f;
@@ -27,14 +22,7 @@ class FPSCounter
   FPSCounter();
   ~FPSCounter(){}
 
-  void ProcessFrame(Mat& frame);
-
-  static void* thread_function(void *arg) {
-    FPSCounter* cls = (FPSCounter*)(((func_mat*)arg)->func);
-    cls->ProcessFrame(*((func_mat*)arg)->frame);
-    return NULL;
-  }
-
+  virtual void ProcessFrame(Mat& frame);
 };
 
 #endif
