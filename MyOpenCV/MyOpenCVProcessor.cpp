@@ -1,17 +1,17 @@
 #include <thread>
 
-#include "MyOpenCVIterator.hpp"
+#include "MyOpenCVProcessor.hpp"
 
 #include "FPSCounter.hpp"
 #include "SystemMonitor.hpp"
 #include "HumanDetector.hpp"
 #include "HUD.hpp"
 
-MyOpenCVIterator::MyOpenCVIterator()
+MyOpenCVProcessor::MyOpenCVProcessor()
 {
 }
 
-void MyOpenCVIterator::Initialize()
+void MyOpenCVProcessor::Initialize()
 {
   m_cvMain.push_back(new HumanDetector("/usr/local/share/OpenCV/haarcascades/haarcascade_frontalface_default.xml"));
 
@@ -21,16 +21,16 @@ void MyOpenCVIterator::Initialize()
 }
 
 
-void MyOpenCVIterator::ThreadWorker(MyOpenCVIF* myCV, Mat& frame)
+void MyOpenCVProcessor::ThreadWorker(MyOpenCVIF* myCV, Mat& frame)
 {
   myCV->ProcessFrame(frame);
 }
 
-void MyOpenCVIterator::ProcessFrame(Mat& frame)
+void MyOpenCVProcessor::ProcessFrame(Mat& frame)
 {
   vector<std::thread> threads;
   for(auto i: m_cvThread){
-    threads.push_back(std::thread(&MyOpenCVIterator::ThreadWorker,this, i, frame));
+    threads.push_back(std::thread(&MyOpenCVProcessor::ThreadWorker,this, i, frame));
   }
 
   for(auto i: m_cvMain){

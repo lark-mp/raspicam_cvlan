@@ -1,5 +1,11 @@
 OBJDIR=objs
 
+MYOBJS = \
+	$(OBJDIR)/HumanDetector.o \
+	$(OBJDIR)/HUD.o \
+	$(OBJDIR)/FPSCounter.o \
+	$(OBJDIR)/SystemMonitor.o 
+
 GCC_VER_GE_47=$(shell test `gcc -dumpversion | sed 's/^\([0-9]\)\.\([0-9]\).*/\1\2/'` -ge 47 && echo 1 || echo 0)
 
 ifeq ($(GCC_VER_GE_47),1)
@@ -13,11 +19,8 @@ LDFLAGS=-lopencv_highgui -lopencv_core -lopencv_video -lopencv_features2d -lopen
 
 OBJS = \
 	$(OBJDIR)/RaspiCamMain.o \
-	$(OBJDIR)/MyOpenCVIterator.o \
-	$(OBJDIR)/HumanDetector.o \
-	$(OBJDIR)/HUD.o \
-	$(OBJDIR)/FPSCounter.o \
-	$(OBJDIR)/SystemMonitor.o 
+	$(OBJDIR)/MyOpenCVProcessor.o \
+	$(MYOBJS)
 
 VPATH = MyOpenCV
 
