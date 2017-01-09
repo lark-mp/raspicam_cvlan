@@ -30,7 +30,7 @@ void MyOpenCVProcessor::ProcessFrame(Mat& frame)
 {
   vector<std::thread> threads;
   for(auto i: m_cvThread){
-    threads.push_back(std::thread(&MyOpenCVProcessor::ThreadWorker,this, i, frame));
+    threads.push_back(std::thread(&MyOpenCVProcessor::ThreadWorker,this, i, std::ref(frame)));
   }
 
   for(auto i: m_cvMain){
