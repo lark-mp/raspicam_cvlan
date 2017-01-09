@@ -1,7 +1,7 @@
 # raspicam_cvlan
 raspicam_cvlan is an easy-to-use installer and program that enables raspberry pi 2 to show camera module streaming video with OpenCV over LAN.
 
-The script is for Raspbian. Tested version is 2015-05-05.
+The script is for Raspbian. Tested version is 2015-05-05 w/OpenCV 3.0.0 and 2016-11-25 w/OpenCV 3.2.0.
 ## Requirements
 * Raspberry Pi2
 * Raspberry Pi Video Module
