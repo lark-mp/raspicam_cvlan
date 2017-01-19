@@ -21,13 +21,20 @@ sudo apt-get -y install pv
 # Install OpenCV 3.2.0
 sudo chmod 777 /usr/local/src
 cd /usr/local/src
-wget http://sourceforge.net/projects/opencvlibrary/files/opencv-unix/3.2.0/opencv-3.2.0.zip
+wget https://github.com/opencv/opencv/archive/3.2.0.zip
+mv 3.2.0.zip opencv-3.2.0.zip
 unzip opencv-3.2.0.zip
 mv opencv-3.2.0 opencv-3.2.0-raspicam_cvlan
+
+wget https://github.com/opencv/opencv_contrib/archive/3.2.0.zip
+mv 3.2.0.zip opencv_contrib-3.2.0.zip
+unzip opencv_contrib-3.2.0.zip
+mv opencv_contrib-3.2.0 opencv-contrib-3.2.0-raspicam_cvlan
+
 cd opencv-3.2.0-raspicam_cvlan
 mkdir build
 cd build
-cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D BUILD_NEW_PYTHON_SUPPORT=ON -D WITH_CUDA=OFF -D WITH_CUFFT=OFF -D WITH_OPENCL=OFF -D WITH_OPENCLAMDBLAS=OFF -D WITH_OPENCLAMDFFT=OFF ..
+cmake -D OPENCV_EXTRA_MODULES_PATH=../../opencv-contrib-3.2.0-raspicam_cvlan/modules -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D BUILD_NEW_PYTHON_SUPPORT=ON -D WITH_CUDA=OFF -D WITH_CUFFT=OFF -D WITH_OPENCL=OFF -D WITH_OPENCLAMDBLAS=OFF -D WITH_OPENCLAMDFFT=OFF ..
 # Modify a few lines for raspicam_cvlan
 sed -i -e "1861s/NULL, filename, NULL/\"rawvideo\", filename, NULL/" ../modules/videoio/src/cap_ffmpeg_impl.hpp
 sed -i -e "1863s/NULL, filename, NULL/\"rawvideo\", filename, NULL/" ../modules/videoio/src/cap_ffmpeg_impl.hpp
